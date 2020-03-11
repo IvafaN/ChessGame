@@ -1,4 +1,4 @@
-package classes;
+package IntroToOOP.classes;
 
 public class ContactsManager {
     // fields

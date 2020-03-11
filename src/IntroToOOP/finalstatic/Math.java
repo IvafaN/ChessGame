@@ -1,4 +1,4 @@
-package finalstatic;
+package IntroToOOP.finalstatic;
 
 public class Math {
     // static var

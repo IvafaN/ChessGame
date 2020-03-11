@@ -1,4 +1,4 @@
-package Week1.ArrayLists;
+package Exams.Week1.ArrayLists;
 
 public class Book {
     public static void main(String[] args) {

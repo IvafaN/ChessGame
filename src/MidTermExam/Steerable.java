@@ -1,4 +1,4 @@
-package main;
+package MidTermExam;
 
 public interface Steerable {
     public void accelerate();

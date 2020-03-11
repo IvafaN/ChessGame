@@ -1,5 +1,4 @@
-package main;
-
+package MidTermExam;
 import java.util.ArrayList;
 
 public class Driver {

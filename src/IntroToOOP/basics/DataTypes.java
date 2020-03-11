@@ -1,4 +1,4 @@
-package basics;
+package IntroToOOP.basics;
 
 public class DataTypes {
     public static void main(String[] args) {

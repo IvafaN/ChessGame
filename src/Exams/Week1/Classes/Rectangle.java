@@ -1,4 +1,4 @@
-package Week1.Classes;
+package Exams.Week1.Classes;
 
 public class Rectangle {
     // fields

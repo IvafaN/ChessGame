@@ -1,4 +1,4 @@
-package interfaces;
+package IntroToOOP.interfaces;
 
 public class Car implements Movable {
     private int fuel;

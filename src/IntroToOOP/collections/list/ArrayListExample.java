@@ -1,4 +1,4 @@
-package collections.list;
+package IntroToOOP.collections.list;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package encapsulation;
+package IntroToOOP.encapsulation;
 
 public class Driver {
     public static void main(String[] args) {

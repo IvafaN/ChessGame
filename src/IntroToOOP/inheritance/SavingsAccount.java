@@ -1,4 +1,4 @@
-package inheritance;
+package IntroToOOP.inheritance;
 
 public class SavingsAccount extends BankAccount {
     private int transactions;

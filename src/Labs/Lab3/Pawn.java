@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 class Pawn extends Piece{
     final private int DEFAULT_VALUE = 1;
     private Boolean promoted = false;

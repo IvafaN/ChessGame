@@ -1,4 +1,4 @@
-package finalstatic;
+package IntroToOOP.finalstatic;
 import static finalstatic.Validation.*;
 
 // universalForm = 21:45:20

@@ -1,4 +1,4 @@
-package MiniProject_I;
+package MiniProjects.MiniProject_I;
 import java.io.FileNotFoundException;
 
 public class Driver {

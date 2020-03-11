@@ -1,4 +1,4 @@
-package Week1.WhileLoops;
+package Exams.Week1.WhileLoops;
 
 import java.util.Scanner;
 

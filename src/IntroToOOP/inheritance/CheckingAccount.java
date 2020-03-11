@@ -1,4 +1,4 @@
-package inheritance;
+package IntroToOOP.inheritance;
 
 public class CheckingAccount extends BankAccount {
     private long limit;

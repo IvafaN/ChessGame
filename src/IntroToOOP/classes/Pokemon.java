@@ -1,4 +1,4 @@
-package classes;
+package IntroToOOP.classes;
 
 // blueprint (template)
 public class Pokemon {

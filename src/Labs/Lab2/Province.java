@@ -1,4 +1,4 @@
-package Lab2;
+package Labs.Lab2;
 
 public class Province {
     // Class Province has three instance variables:             // DONE

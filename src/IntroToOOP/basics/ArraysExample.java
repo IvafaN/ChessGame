@@ -1,4 +1,4 @@
-package basics;
+package IntroToOOP.basics;
 
 import java.util.Arrays;
 

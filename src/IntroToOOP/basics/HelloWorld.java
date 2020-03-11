@@ -1,4 +1,4 @@
-package basics;
+package IntroToOOP.basics;
 
 public class HelloWorld {
     // main() -> you must have this method to run your java program

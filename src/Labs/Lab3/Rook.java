@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 class Rook extends Piece{
     final private int DEFAULT_VALUE = 5;
     public Rook(){

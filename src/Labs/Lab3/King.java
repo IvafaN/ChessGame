@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 class King extends Piece{
     final private int DEFAULT_VALUE = 1000;
     public King(){

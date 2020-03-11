@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 class Queen extends Piece{
     final private int DEFAULT_VALUE = 9;
     public Queen(){

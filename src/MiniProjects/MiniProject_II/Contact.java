@@ -1,4 +1,4 @@
-package MiniProject_II;
+package MiniProjects.MiniProject_II;
 
 public class Contact {
     // fields

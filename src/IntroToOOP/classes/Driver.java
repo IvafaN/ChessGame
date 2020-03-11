@@ -1,4 +1,4 @@
-package classes;
+package IntroToOOP.classes;
 
 // Driver == Client == Main
 // - where you have the main method to run your java program!

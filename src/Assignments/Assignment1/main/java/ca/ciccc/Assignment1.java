@@ -1,4 +1,4 @@
-package ca.ciccc;
+package Assignments.Assignment1.main.java.ca.ciccc;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 

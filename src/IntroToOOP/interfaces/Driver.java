@@ -1,4 +1,4 @@
-package interfaces;
+package IntroToOOP.interfaces;
 
 public class Driver {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package inheritance;
+package IntroToOOP.inheritance;
 
 import java.util.Objects;
 

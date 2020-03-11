@@ -1,4 +1,4 @@
-package interfaces;
+package IntroToOOP.interfaces;
 
 public class House implements Habitable {
     private int numOfBedrooms;

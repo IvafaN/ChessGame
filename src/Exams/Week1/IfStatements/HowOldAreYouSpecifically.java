@@ -1,4 +1,4 @@
-package Week1.IfStatements;
+package Exams.Week1.IfStatements;
 import java.util.Scanner;
 
 public class HowOldAreYouSpecifically {

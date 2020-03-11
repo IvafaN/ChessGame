@@ -1,4 +1,4 @@
-package Week2.ArrayLists;
+package Exams.Week2.ArrayLists;
 
 import java.util.ArrayList;
 import java.util.Random;

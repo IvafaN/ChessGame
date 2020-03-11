@@ -1,4 +1,4 @@
-import ca.ciccc.Assignment1;
+import Assignments.Assignment1.test.java.*;
 import org.junit.Assert;
 import org.junit.Test;
 

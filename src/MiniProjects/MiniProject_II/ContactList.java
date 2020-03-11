@@ -1,4 +1,4 @@
-package MiniProject_II;
+package MiniProjects.MiniProject_II;
 import java.util.ArrayList;
 public class ContactList {
     // fields

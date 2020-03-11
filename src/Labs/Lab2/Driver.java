@@ -1,4 +1,4 @@
-package Lab2;
+package Labs.Lab2;
 
 public class Driver {
     public static void main(String[] args) {

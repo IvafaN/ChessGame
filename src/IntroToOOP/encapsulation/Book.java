@@ -1,4 +1,4 @@
-package encapsulation;
+package IntroToOOP.encapsulation;
 
 public class Book {
     // fields (instance variables)

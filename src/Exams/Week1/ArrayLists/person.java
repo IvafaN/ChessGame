@@ -1,4 +1,4 @@
-package Week1.ArrayLists;
+package Exams.Week1.ArrayLists;
 
 import java.util.UUID;
 

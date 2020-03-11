@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 abstract class Piece{
     private int Value = 0;
     private boolean IsWhite = false;

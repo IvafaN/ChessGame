@@ -1,4 +1,4 @@
-package encapsulation;
+package IntroToOOP.encapsulation;
 
 import java.util.UUID;
 

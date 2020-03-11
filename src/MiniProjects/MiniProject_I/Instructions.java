@@ -1,4 +1,4 @@
-package MiniProject_I;
+package MiniProjects.MiniProject_I;
 
 public class Instructions {
     // Ok, it's time to build your own project in Java, this time you'll be completing a game where the player gets to guess the city name given the number of letters in it (pretty much like hangman but with cities)!

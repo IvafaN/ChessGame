@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 class Bishop extends Piece{
     final private int DEFAULT_VALUE = 3;
     public Bishop(){

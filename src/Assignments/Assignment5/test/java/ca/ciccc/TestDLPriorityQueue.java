@@ -1,4 +1,4 @@
-package ca.ciccc;
+package Assignments.Assignment5;
 
 public class TestDLPriorityQueue {
 }

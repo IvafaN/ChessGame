@@ -1,4 +1,4 @@
-package Lab2;
+package Labs.Lab2;
 
 public class Canada {
     // Class Canada has one instance variable: // DONE

@@ -1,4 +1,4 @@
-package finalstatic;
+package IntroToOOP.finalstatic;
 
 public class Driver {
     public static void main(String[] args) {

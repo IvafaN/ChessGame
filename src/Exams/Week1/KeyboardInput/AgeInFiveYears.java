@@ -1,4 +1,4 @@
-package Week1.KeyboardInput;
+package Exams.Week1.KeyboardInput;
 
 import java.util.Scanner;
 

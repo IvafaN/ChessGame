@@ -1,4 +1,4 @@
-package main;
+package MidTermExam;
 
 abstract class Vehicle implements Steerable {
     private int weightPounds;

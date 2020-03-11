@@ -1,4 +1,4 @@
-package interfaces;
+package IntroToOOP.interfaces;
 
 public class Caravan implements Movable, Habitable {
     private int maxCapacity;

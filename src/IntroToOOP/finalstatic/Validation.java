@@ -1,4 +1,4 @@
-package finalstatic;
+package IntroToOOP.finalstatic;
 
 public class Validation {
     public static void checkHour(int hour) {

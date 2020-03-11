@@ -1,4 +1,4 @@
-package Week2.Arrays;
+package Exams.Week2.Arrays;
 import java.util.Random;
 
 public class BasicArrays2 {

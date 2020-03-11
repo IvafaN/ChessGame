@@ -1,4 +1,4 @@
-package interfaces;
+package IntroToOOP.interfaces;
 
 public interface Movable {
     void move(int distance);

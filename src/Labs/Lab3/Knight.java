@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 class Knight extends Piece{
     final private int DEFAULT_VALUE = 2;
     public Knight(){

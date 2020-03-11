@@ -1,4 +1,4 @@
-package main;
+package MidTermExam;
 
 public class Car extends Vehicle{
     public Car(int weightPounds) {

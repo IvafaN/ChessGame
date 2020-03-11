@@ -1,4 +1,4 @@
-package MiniProject_II;
+package MiniProjects.MiniProject_II;
 import java.util.Scanner;
 public class Driver {
     /**
@@ -12,7 +12,6 @@ public class Driver {
         InputCollector input = new InputCollector();
         ContactList    list  = new ContactList();
         boolean        flag  = true;
-
 
         while(flag){
             d.showMenu();

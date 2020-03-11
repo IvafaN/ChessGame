@@ -1,4 +1,4 @@
-package Lab3;
+package Labs.Lab3;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class Drive {

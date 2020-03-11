@@ -1,4 +1,4 @@
-package MiniProject_II;
+package MiniProjects.MiniProject_II;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package main;
+package MidTermExam;
 
 public class Instructions {
     // The application MUST compile and run at the end.                              //

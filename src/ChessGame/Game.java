@@ -54,8 +54,18 @@ public class Game {
      * @param
      * @return
      */
-    void showBoard(){
+    static void showBoard(){
         // Ex.   ->   Exams/Week2/ArrayList
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println("********");
+        System.out.println();
+        System.out.println("Board Working! V");
     }
 
     /**
@@ -63,8 +73,33 @@ public class Game {
      * @param
      * @return
      */
-    void showMenu(){
+    static void showMenu(){
         // Ex.   ->   MiniProjects/MiniProject_II
+        //InputCollector inputCollector = new InputCollector();
+        boolean on = true;
+        while (on) {
+
+            switch (InputCollector.askInput("Enter UCI ( Type 'help' for help): ")) {
+                case "help":
+                    Game.showHelp();
+                    break;
+                case "board":
+                    Game.showBoard();
+                    break;
+                case "resign":
+                    Game.resignPlayer();
+                    //on = false;
+                    break;
+                case "moves":
+                    //Game.possibleMoves();
+                    System.out.println(Game.possibleMoves());
+                    break;
+                case "":
+                    System.out.println(Game.possibleMovesByPiece());
+                    break;
+            }
+        }
+        InputCollector.askInput("Enter your option: ");
     }
 
 
@@ -73,9 +108,12 @@ public class Game {
      * @param
      * @return
      */
-    String resignPlayer(){
+    static void resignPlayer(){
         // Ex.   ->   Exams/Week2/ArrayList
-        return "";
+        System.out.println("Game Over! Working V");
+        System.exit(0);
+        //return ;
+
     }
 
     /**
@@ -83,8 +121,8 @@ public class Game {
      * @param
      * @return
      */
-    String possibleMoves(){
-        return "";
+    static String possibleMoves(){
+        return "Possible Moves Working! V";
     }
 
 
@@ -93,8 +131,8 @@ public class Game {
      * @param
      * @return
      */
-    String possibleMovesByPiece(){
-        return "";
+    static String possibleMovesByPiece(){
+        return "Possible Moves By Piece Working! V";
     }
 
     /**
@@ -102,10 +140,14 @@ public class Game {
      * @param
      * @return
      */
-    String showHelp(){
-        return "";
+    public static void showHelp(){
+        System.out.println("* Type 'help' for help");
+        System.out.println("* Type 'board' to see the board again");
+        System.out.println("* Type 'resign' to surrender and quit the game");
+        System.out.println("* Type 'moves' to list all possible moves");
+        System.out.println("* Type a square (e.g b1, e2) to list all possible moves for that square");
+        System.out.println("* Type UCI (e.g. b1c3, e7e8) to make a move");
     }
-
 
     /**
      *

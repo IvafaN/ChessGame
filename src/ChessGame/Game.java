@@ -46,26 +46,13 @@ public class Game {
      * @param
      * @return
      */
-    void createBoard(){
-        // Ex.   ->   Exams/Week2/ArrayList
-    }
-    /**
-     *
-     * @param
-     * @return
-     */
-    static void showBoard(){
-        // Ex.   ->   Exams/Week2/ArrayList
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println("********");
-        System.out.println();
-        System.out.println("Board Working! V");
+    void showBoard(){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print("X");
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -73,30 +60,15 @@ public class Game {
      * @param
      * @return
      */
-    static void showMenu(){
-        // Ex.   ->   MiniProjects/MiniProject_II
-        //InputCollector inputCollector = new InputCollector();
+    void showMenu(){
         boolean on = true;
         while (on) {
-
             switch (InputCollector.askInput("Enter UCI ( Type 'help' for help): ")) {
-                case "help":
-                    Game.showHelp();
-                    break;
-                case "board":
-                    Game.showBoard();
-                    break;
-                case "resign":
-                    Game.resignPlayer();
-                    //on = false;
-                    break;
-                case "moves":
-                    //Game.possibleMoves();
-                    System.out.println(Game.possibleMoves());
-                    break;
-                case "":
-                    System.out.println(Game.possibleMovesByPiece());
-                    break;
+                case "help":   showHelp();          break;
+                case "board":  showBoard();         break;
+                case "resign": resignPlayer();      break;
+                case "moves":  possibleMoves();     break;
+                case "":       possibleMovesByPiece(); break;
             }
         }
         InputCollector.askInput("Enter your option: ");
@@ -108,12 +80,9 @@ public class Game {
      * @param
      * @return
      */
-    static void resignPlayer(){
-        // Ex.   ->   Exams/Week2/ArrayList
-        System.out.println("Game Over! Working V");
+    void resignPlayer(){
+        System.out.println("Game Over!");
         System.exit(0);
-        //return ;
-
     }
 
     /**
@@ -121,26 +90,21 @@ public class Game {
      * @param
      * @return
      */
-    static String possibleMoves(){
-        return "Possible Moves Working! V";
-    }
-
+    void possibleMoves(){ System.out.printf("Possible Moves Working! V"); }
 
     /**
      *
      * @param
      * @return
      */
-    static String possibleMovesByPiece(){
-        return "Possible Moves By Piece Working! V";
-    }
+    void possibleMovesByPiece() { System.out.printf("Possible Moves By Piece Working! V"); }
 
     /**
      *
      * @param
      * @return
      */
-    public static void showHelp(){
+    static void showHelp(){
         System.out.println("* Type 'help' for help");
         System.out.println("* Type 'board' to see the board again");
         System.out.println("* Type 'resign' to surrender and quit the game");
@@ -155,11 +119,8 @@ public class Game {
      * @return
      */
     public void start() {
-        createPieces();
-        createBoard();
-        boolean play = true;
-        while(play){
-            showMenu();
-        }
+        //createPieces();
+        showBoard();
+        showMenu();
     }
 }

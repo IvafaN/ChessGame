@@ -18,6 +18,7 @@ public class Game {
     }
 
     /**
+     * calls all functions methods setting up the pieces, the board and showing the menu options
      *
      * @param
      * @return
@@ -31,6 +32,8 @@ public class Game {
 
     /////////////////////////////////// SETUP OPTIONS
     /**
+     * This method sets the pieces starting every piece in their right positions on the board.
+     * Black pieces and White pieces with the •
      *
      * @param
      * @return
@@ -61,6 +64,7 @@ public class Game {
         pieces.add(new Rook  (player2, false, "♖", new Position(7, 7 )));
     }
     /**
+     * Create a 2Dimensional array 8x8 which is the board
      *
      * @param
      * @return
@@ -78,6 +82,7 @@ public class Game {
 
     /////////////////////////////////// MENU OPTIONS
     /**
+     * Call the menu options repetitive until the game finishes.
      *
      * @param
      * @return
@@ -97,6 +102,7 @@ public class Game {
         }
     }
     /**
+     * Print the help options explained.
      *
      * @param
      * @return
@@ -110,6 +116,7 @@ public class Game {
         System.out.println("* Type UCI (e.g. b1c3, e7e8) to make a move");
     }
     /**
+     * Print the board by reading the updated 2D array with all pieces and squares
      *
      * @param
      * @return
@@ -126,6 +133,7 @@ public class Game {
         System.out.println("A "+"B "+"C "+"D "+"E "+"F "+"G "+"H ");
     }
     /**
+     * Print the winner and ask if you would like to start another chess match
      *
      * @param
      * @return
@@ -152,11 +160,94 @@ public class Game {
         //else                                System.out.println("Nope, can't do!");
     }
 
+<<<<<<< HEAD
     /////////////////////////////////// VALIDATION OPTIONS
+=======
     /**
+     * Read the UCI(letter a number) movement's position and convert to coordinates
+     * in 2D array "e.g. a7a6 -> (a7)array[1][0] (a6)array[2][0]
      *
-     * @param
-     * @return
+     * @param UCI is the letter and number the user is typing "e.g. b1c4"
+     * @return newUCI changed to position in array's number.
+     */
+    private int[] changeCoordinate(String [] UCI, String option){
+        switch (UCI[0].toUpperCase()){
+            case "A": UCI[0] = "0"; break; case "E": UCI[0] = "4"; break;
+            case "B": UCI[0] = "1"; break; case "F": UCI[0] = "5"; break;
+            case "C": UCI[0] = "2"; break; case "G": UCI[0] = "6"; break;
+            case "D": UCI[0] = "3"; break; case "H": UCI[0] = "7"; break;
+            default: System.out.println("Input out the range");    break;
+        }
+        switch (UCI[1]){
+            case "1": UCI[1] = "7"; break; case "5": UCI[1] = "3"; break;
+            case "2": UCI[1] = "6"; break; case "6": UCI[1] = "2"; break;
+            case "3": UCI[1] = "5"; break; case "7": UCI[1] = "1"; break;
+            case "4": UCI[1] = "4"; break; case "8": UCI[1] = "0"; break;
+            default: System.out.println("Input out the range");    break;
+        }
+        if (option == "two-dimensional"){
+            switch (UCI[2].toUpperCase()){
+                case "A": UCI[2] = "0"; break; case "E": UCI[2] = "4"; break;
+                case "B": UCI[2] = "1"; break; case "F": UCI[2] = "5"; break;
+                case "C": UCI[2] = "2"; break; case "G": UCI[2] = "6"; break;
+                case "D": UCI[2] = "3"; break; case "H": UCI[2] = "7"; break;
+                default: System.out.println("Input out the range");    break;
+            }
+            switch (UCI[3]){
+                case "1": UCI[3] = "7"; break; case "5": UCI[3] = "3"; break;
+                case "2": UCI[3] = "6"; break; case "6": UCI[3] = "2"; break;
+                case "3": UCI[3] = "5"; break; case "7": UCI[3] = "1"; break;
+                case "4": UCI[3] = "4"; break; case "8": UCI[3] = "0"; break;
+                default: System.out.println("Input out the range");    break;
+            }
+        }
+        int[] newUCI = new int[UCI.length];
+        newUCI[0]=Integer.parseInt(UCI[1]); // A = 0
+        newUCI[1]=Integer.parseInt(UCI[0]); // 2 = 6
+        newUCI[2]=Integer.parseInt(UCI[3]); // A = 0
+        newUCI[3]=Integer.parseInt(UCI[2]); // 3 = 5
+        // Ex. UCI = A2A3 / newUCI = 6050
+        return newUCI;
+    }
+    /**
+     * Check if the UCI is a valid option or valid move's coordinates
+     *
+     * @param UCI is the user typing
+     * @return true if the UCI is valid
+     */
+    private boolean validateUCI(String [] UCI, String option){
+        boolean flag1 = false;
+        boolean flag2 = false;
+        if ( UCI[0].toUpperCase().equals("A") || UCI[0].toUpperCase().equals("B") ||
+             UCI[0].toUpperCase().equals("C") || UCI[0].toUpperCase().equals("D") ||
+             UCI[0].toUpperCase().equals("E") || UCI[0].toUpperCase().equals("F") ||
+             UCI[0].toUpperCase().equals("G") || UCI[0].toUpperCase().equals("H")) {
+            if (Integer.parseInt(UCI[1]) <= MIN_ROW)
+                flag1 = true;
+        }
+
+        if (option == "two-dimensional"){
+            if ( UCI[2].toUpperCase().equals("A") || UCI[2].toUpperCase().equals("B") ||
+                 UCI[2].toUpperCase().equals("C") || UCI[2].toUpperCase().equals("D") ||
+                 UCI[2].toUpperCase().equals("E") || UCI[2].toUpperCase().equals("F") ||
+                 UCI[2].toUpperCase().equals("G") || UCI[2].toUpperCase().equals("H")) {
+                if (Integer.parseInt(UCI[3]) <= MIN_ROW)
+                    flag2 = true;
+                else
+                    flag2 = false;
+            }
+             else
+                 flag2 = false;
+        }
+        return (flag1 && flag2);
+    }
+
+>>>>>>> 0797c4d7c3ba19fa6aaa42358d8bc00ee69a967b
+    /**
+     * Call all methods of validations(such a valid's 1 move, valid player's turn and valid piece
+     *
+     * @param UCI array position
+     * @return true if all methods are true
      */
     private boolean mainValidations(int[] UCI){
         if (validateAtLeastOneMovement(UCI) &&
@@ -167,9 +258,10 @@ public class Game {
             return false;
     }
     /**
+     * Check if you entered at least 2 position(FROM square TO square) the "from" position and the "to" position
      *
-     * @param
-     * @return
+     * @param UCI array position
+     * @return true if the user typed one movement
      */
     private boolean validateAtLeastOneMovement(int[] UCI){
         if (UCI[0] == UCI[2] && UCI[1] == UCI[3]){
@@ -178,9 +270,11 @@ public class Game {
         }else return true;
     }
     /**
+     *  This method checks if the "position" you are trying to move exists or it is just a empty square
+     *  If it is a valid piece return true
      *
-     * @param
-     * @return
+     * @param UCI array position
+     * @return true if the position is not empty(exist a piece)
      */
     private boolean validateNullPiece(int[] UCI){
         if (board[UCI[0]][UCI[1]].equals(
@@ -205,6 +299,7 @@ public class Game {
      * @param
      * @return
      */
+<<<<<<< HEAD
     private boolean validateUCI(String [] UCI, String option){
         boolean flag1 = false;
         boolean flag2 = false;
@@ -277,12 +372,20 @@ public class Game {
         // Ex. UCI = A2A3 / newUCI = 6050
         return newUCI;
     }
+=======
+>>>>>>> 0797c4d7c3ba19fa6aaa42358d8bc00ee69a967b
     private void changePiece(int[] UCI){
         boardPrev = new Piece[1][1];
         boardPrev[0][0] = board[UCI[2]][UCI[3]];
         board[UCI[2]][UCI[3]] = board[UCI[0]][UCI[1]];
         board[UCI[0]][UCI[1]] = boardPrev[0][0];
     }
+    /**
+     * This method updates the player turn, if it's "White player" or "Black player"
+     *
+     * @param
+     * @return
+     */
     private void changeTurn(){
         if (turn.equals(player1)) turn = player2;
         else                      turn = player1;

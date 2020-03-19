@@ -16,12 +16,26 @@ public class NullPiece extends Piece{
 
     }
 
+    /**
+     * Setters...
+     * Change(update) the values of number of movements, the player(String) and color(boolean), the position and the symbol.
+     *
+     * @param value, isWhite, position, symbol, player
+     * @return
+     */
     @Override protected void    setNumMaxMovements   (int value) { this.numMaxMovements    = value; }
     @Override protected void    setIsWhite (boolean isWhite)     { this.isWhite  = isWhite; }
     @Override protected void    setPosition(Position position)   { this.position = position; }
     @Override protected void    setSymbol  (String symbol)       { this.symbol   = symbol; }
     @Override protected void    setPlayer  (String player)       { this.player   = player; }
 
+    /**
+     * Getters...
+     * Return the number of movements, the player(string) and color(boolean), the position and the symbol.
+     *
+     * @param
+     * @return numMaxMovements, isWhite, position, symbol, player
+     */
     @Override public    int      getNumMaxMovements() { return this.numMaxMovements; }
     @Override public    boolean  getIsWhite()         { return this.isWhite; }
     @Override public    Position getPosition()        { return this.position; }

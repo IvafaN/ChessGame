@@ -19,6 +19,7 @@ class King extends Piece{
     /**
      * Setters...
      * Change(update) the values of number of movements, the player(String) and color(boolean), the position and the symbol.
+     * Attributes of the "King"
      *
      * @param value, isWhite, position, symbol, player
      * @return
@@ -31,6 +32,7 @@ class King extends Piece{
     /**
      * Getters...
      * Return the number of movements, the player(string) and color(boolean), the position and the symbol.
+     * Attributes of the "King"
      *
      * @param
      * @return numMaxMovements, isWhite, position, symbol, player
@@ -40,32 +42,40 @@ class King extends Piece{
     @Override public    Position getPosition()        { return this.position; }
     @Override public    String   getSymbol()          { return this.symbol; }
     @Override public    String   getPlayer()          { return this.player; }
+
     /**
+     * Print the King's movement based on the Chess's rules
      *
      * @param
      * @return
      */
     @Override public void move() { System.out.println("One square"); }
+
     /**
+     * Return the right symbol for the King
      *
      * @param
-     * @return
+     * @return symbol(String)
      */
     @Override public String toString() { return getSymbol(); }
+
     /**
+     * Check if one piece is equal to another piece
      *
-     * @param
-     * @return
+     * @param piece is the other piece to be verified
+     * @return true if they are equal piece(same attributes)
      */
     @Override public Boolean equals(Piece piece) {
         return (this.symbol  == piece.getSymbol()  &&
                 this.isWhite == piece.getIsWhite() &&
                 this.player  == piece.getPlayer() );
     }
+
     /**
+     * Check if the Position(newPosition) is a valid move for the King based on the Chess's rules
      *
-     * @param newPosition is the new row and new col of the board
-     * @return if it's a valid move
+     * @param newPosition is the new row and new col of the piece in the board
+     * @return true if it's a valid move
      */
     @Override public boolean isValidMove(Position newPosition){
         if(!super.isValidMove(position))return false; // First call the parent's method to check for the board bounds

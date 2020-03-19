@@ -29,6 +29,7 @@ public class Game {
         showMenu();
     }
 
+    /////////////////////////////////// SETUP OPTIONS
     /**
      *
      * @param
@@ -59,7 +60,6 @@ public class Game {
         pieces.add(new Knight(player2, false, "♘", new Position(7, 6 )));
         pieces.add(new Rook  (player2, false, "♖", new Position(7, 7 )));
     }
-
     /**
      *
      * @param
@@ -75,6 +75,8 @@ public class Game {
         }
     }
 
+
+    /////////////////////////////////// MENU OPTIONS
     /**
      *
      * @param
@@ -86,15 +88,14 @@ public class Game {
             System.out.println("\n" + turn + " to move");
             String input = InputCollector.askInput("Enter UCI ( Type 'help' for help): ");
             switch (input) {
-                case "help":   showHelp();        break;
-                case "board":  showBoard();       break;
-                case "resign": resignPlayer();    break;
-                case "moves":  possibleMoves();   break;
+                case "help":   showHelp();      break;
+                case "board":  showBoard();     break;
+                case "resign": resignPlayer();  break;
+                case "moves":  possibleMoves(); break;
                 default: getUCI(input); break;
             }
         }
     }
-
     /**
      *
      * @param
@@ -108,7 +109,6 @@ public class Game {
         System.out.println("* Type a square (e.g b1, e2) to list all possible moves for that square");
         System.out.println("* Type UCI (e.g. b1c3, e7e8) to make a move");
     }
-
     /**
      *
      * @param
@@ -125,7 +125,6 @@ public class Game {
         }
         System.out.println("A "+"B "+"C "+"D "+"E "+"F "+"G "+"H ");
     }
-
     /**
      *
      * @param
@@ -139,7 +138,6 @@ public class Game {
 
         // PENDING TO PROGRAM, RESET BOARD AND START AGAIN WITHOUT EXIT THE SYSTEM
     }
-
     /**
      *
      * @param
@@ -154,6 +152,87 @@ public class Game {
         //else                                System.out.println("Nope, can't do!");
     }
 
+    /////////////////////////////////// VALIDATION OPTIONS
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean mainValidations(int[] UCI){
+        if (validateAtLeastOneMovement(UCI) &&
+            validateNullPiece(UCI) &&
+            validatePlayer())
+            return true;
+        else
+            return false;
+    }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean validateAtLeastOneMovement(int[] UCI){
+        if (UCI[0] == UCI[2] && UCI[1] == UCI[3]){
+            System.out.println("Invalid input, you didn't at least one movement of the piece\n");
+            return false;
+        }else return true;
+    }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean validateNullPiece(int[] UCI){
+        if (board[UCI[0]][UCI[1]].equals(
+                new NullPiece("• ", new Position(UCI[0], UCI[1])))){
+            System.out.println("Invalid piece, please try with a valid piece.\n");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean validatePlayer(){
+        return true; // PENDING
+    }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean validateUCI(String [] UCI, String option){
+        boolean flag1 = false;
+        boolean flag2 = false;
+        if ( UCI[0].toUpperCase().equals("A") || UCI[0].toUpperCase().equals("B") ||
+                UCI[0].toUpperCase().equals("C") || UCI[0].toUpperCase().equals("D") ||
+                UCI[0].toUpperCase().equals("E") || UCI[0].toUpperCase().equals("F") ||
+                UCI[0].toUpperCase().equals("G") || UCI[0].toUpperCase().equals("H")) {
+            if (Integer.parseInt(UCI[1]) <= MIN_ROW)
+                flag1 = true;
+        }
+
+        if (option == "two-dimensional"){
+            if ( UCI[2].toUpperCase().equals("A") || UCI[2].toUpperCase().equals("B") ||
+                    UCI[2].toUpperCase().equals("C") || UCI[2].toUpperCase().equals("D") ||
+                    UCI[2].toUpperCase().equals("E") || UCI[2].toUpperCase().equals("F") ||
+                    UCI[2].toUpperCase().equals("G") || UCI[2].toUpperCase().equals("H")) {
+                if (Integer.parseInt(UCI[3]) <= MIN_ROW)
+                    flag2 = true;
+                else
+                    flag2 = false;
+            }
+            else
+                flag2 = false;
+        }
+        return (flag1 && flag2);
+    }
+
+    /////////////////////////////////// UCI, TURN AND COORDINATE OPTIONS
     /**
      *
      * @param
@@ -198,84 +277,6 @@ public class Game {
         // Ex. UCI = A2A3 / newUCI = 6050
         return newUCI;
     }
-    /**
-     *
-     * @param
-     * @return
-     */
-    private boolean validateUCI(String [] UCI, String option){
-        boolean flag1 = false;
-        boolean flag2 = false;
-        if ( UCI[0].toUpperCase().equals("A") || UCI[0].toUpperCase().equals("B") ||
-             UCI[0].toUpperCase().equals("C") || UCI[0].toUpperCase().equals("D") ||
-             UCI[0].toUpperCase().equals("E") || UCI[0].toUpperCase().equals("F") ||
-             UCI[0].toUpperCase().equals("G") || UCI[0].toUpperCase().equals("H")) {
-            if (Integer.parseInt(UCI[1]) <= MIN_ROW)
-                flag1 = true;
-        }
-
-        if (option == "two-dimensional"){
-            if ( UCI[2].toUpperCase().equals("A") || UCI[2].toUpperCase().equals("B") ||
-                 UCI[2].toUpperCase().equals("C") || UCI[2].toUpperCase().equals("D") ||
-                 UCI[2].toUpperCase().equals("E") || UCI[2].toUpperCase().equals("F") ||
-                 UCI[2].toUpperCase().equals("G") || UCI[2].toUpperCase().equals("H")) {
-                if (Integer.parseInt(UCI[3]) <= MIN_ROW)
-                    flag2 = true;
-                else
-                    flag2 = false;
-            }
-             else
-                 flag2 = false;
-        }
-        return (flag1 && flag2);
-    }
-
-    /**
-     *
-     * @param
-     * @return
-     */
-    private boolean mainValidations(int[] UCI){
-        if (validateAtLeastOneMovement(UCI) && validateNullPiece(UCI) && validatePlayer())
-            return true;
-        else
-            return false;
-    }
-    /**
-     *
-     * @param
-     * @return
-     */
-    private boolean validateAtLeastOneMovement(int[] UCI){
-        if (UCI[0] == UCI[2] && UCI[1] == UCI[3]){
-            System.out.println("Invalid input, you didn't at least one movement of the piece\n");
-            return false;
-        }else return true;
-    }
-    /**
-     *
-     * @param
-     * @return
-     */
-    private boolean validateNullPiece(int[] UCI){
-        if (board[UCI[0]][UCI[1]].equals(
-                new NullPiece("• ", new Position(UCI[0], UCI[1])))){
-            System.out.println("Invalid piece, please try with a valid piece.\n");
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-    /**
-     *
-     * @param
-     * @return
-     */
-    private boolean validatePlayer(){
-        return true; // PENDING
-    }
-
     private void changePiece(int[] UCI){
         boardPrev = new Piece[1][1];
         boardPrev[0][0] = board[UCI[2]][UCI[3]];

@@ -53,5 +53,4 @@ public class InputCollector {
             System.out.println("Black to move");
         }
     }
-
 }

@@ -39,6 +39,12 @@ public class InputCollector {
     void isInstruction(){
 
     }
+    /**
+     * This method reads the user's input
+     *
+     * @param prep
+     * @return what the user typed.
+     */
     public static String askInput(String prep) {
         System.out.println(prep);
         Scanner scanner = new Scanner(System.in);
@@ -46,6 +52,12 @@ public class InputCollector {
         return prompt;
     }
 
+    /**
+     * Prints the turn's color
+     *
+     * @param isWhite
+     * @return
+     */
     public void isWhiteMove(boolean isWhite) {
         if (isWhite) {
             System.out.println("White to move");

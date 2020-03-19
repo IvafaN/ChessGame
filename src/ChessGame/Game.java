@@ -18,6 +18,7 @@ public class Game {
     }
 
     /**
+     * calls all functions methods setting up the pieces, the board and showing the menu options
      *
      * @param
      * @return
@@ -30,6 +31,8 @@ public class Game {
     }
 
     /**
+     * This method sets the pieces starting every piece in their right positions on the board.
+     * Black pieces and White pieces with the •
      *
      * @param
      * @return
@@ -61,6 +64,7 @@ public class Game {
     }
 
     /**
+     * Create a 2Dimensional array 8x8 which is the board
      *
      * @param
      * @return
@@ -76,6 +80,7 @@ public class Game {
     }
 
     /**
+     * Call the menu options repetitive until the game finishes.
      *
      * @param
      * @return
@@ -96,6 +101,7 @@ public class Game {
     }
 
     /**
+     * Print the help options explained.
      *
      * @param
      * @return
@@ -110,6 +116,7 @@ public class Game {
     }
 
     /**
+     * Print the board by reading the updated 2D array with all pieces and squares
      *
      * @param
      * @return
@@ -127,6 +134,7 @@ public class Game {
     }
 
     /**
+     * Print the winner and ask if you would like to start another chess match
      *
      * @param
      * @return
@@ -155,9 +163,11 @@ public class Game {
     }
 
     /**
+     * Read the UCI(letter a number) movement's position and convert to coordinates
+     * in 2D array "e.g. a7a6 -> (a7)array[1][0] (a6)array[2][0]
      *
-     * @param
-     * @return
+     * @param UCI is the letter and number the user is typing "e.g. b1c4"
+     * @return newUCI changed to position in array's number.
      */
     private int[] changeCoordinate(String [] UCI, String option){
         switch (UCI[0].toUpperCase()){
@@ -199,9 +209,10 @@ public class Game {
         return newUCI;
     }
     /**
+     * Check if the UCI is a valid option or valid move's coordinates
      *
-     * @param
-     * @return
+     * @param UCI is the user typing
+     * @return true if the UCI is valid
      */
     private boolean validateUCI(String [] UCI, String option){
         boolean flag1 = false;
@@ -231,9 +242,10 @@ public class Game {
     }
 
     /**
+     * Call all methods of validations(such a valid's 1 move, valid player's turn and valid piece
      *
-     * @param
-     * @return
+     * @param UCI array position
+     * @return true if all methods are true
      */
     private boolean mainValidations(int[] UCI){
         if (validateAtLeastOneMovement(UCI) && validateNullPiece(UCI) && validatePlayer())
@@ -242,9 +254,10 @@ public class Game {
             return false;
     }
     /**
+     * Check if you entered at least 2 position(FROM square TO square) the "from" position and the "to" position
      *
-     * @param
-     * @return
+     * @param UCI array position
+     * @return true if the user typed one movement
      */
     private boolean validateAtLeastOneMovement(int[] UCI){
         if (UCI[0] == UCI[2] && UCI[1] == UCI[3]){
@@ -253,9 +266,11 @@ public class Game {
         }else return true;
     }
     /**
+     *  This method checks if the "position" you are trying to move exists or it is just a empty square
+     *  If it is a valid piece return true
      *
-     * @param
-     * @return
+     * @param UCI array position
+     * @return true if the position is not empty(exist a piece)
      */
     private boolean validateNullPiece(int[] UCI){
         if (board[UCI[0]][UCI[1]].equals(
@@ -275,13 +290,23 @@ public class Game {
     private boolean validatePlayer(){
         return true; // PENDING
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private void changePiece(int[] UCI){
         boardPrev = new Piece[1][1];
         boardPrev[0][0] = board[UCI[2]][UCI[3]];
         board[UCI[2]][UCI[3]] = board[UCI[0]][UCI[1]];
         board[UCI[0]][UCI[1]] = boardPrev[0][0];
     }
+    /**
+     * This method updates the player turn, if it's "White player" or "Black player"
+     *
+     * @param
+     * @return
+     */
     private void changeTurn(){
         if (turn.equals(player1)) turn = player2;
         else                      turn = player1;

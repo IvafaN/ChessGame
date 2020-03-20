@@ -2,19 +2,17 @@ package ChessGame;
 import java.util.ArrayList;
 
 public class Game {
-    private static final int MIN_ROW = 8;
-    private static final int MIN_COL = 8;
-    private static String player1 = "White", player2 = "Black";
-    private static String turn = "";
+    private static final int MIN_ROW = 8, MIN_COL = 8;
+    private static String player1 = "White", player2 = "Black", turn = "";
     private static int winPlayer1 = 0, winPlayer2 = 0;
-
-    private ArrayList<Piece> pieces = new ArrayList<>();
-    private ArrayList<Piece> piecesLost = new ArrayList<>();
+    private ArrayList<Piece> pieces, piecesLost;
     private Piece[][] board, boardPrev;
 
     public Game(){
-        board = new Piece[MIN_ROW][MIN_COL];
-        turn = player1;
+        board      = new Piece[MIN_ROW][MIN_COL];
+        pieces     = new ArrayList<>();
+        piecesLost = new ArrayList<>();
+        turn       = player2;
     }
 
     /**
@@ -29,7 +27,7 @@ public class Game {
         showMenu();
     }
 
-    /////////////////////////////////// SETUP OPTIONS
+ /////////////////////////////////////////////////////////////////// SETUP OPTIONS
     /**
      * This method sets the pieces starting every piece in their right positions on the board.
      * Black pieces and White pieces with the •
@@ -54,13 +52,14 @@ public class Game {
         for (int i = 0; i < MIN_ROW; i++)   pieces.add(new Pawn      (player2, false, "♙", new Position(6, i )));
         pieces.add(new Rook  (player2, false, "♖", new Position(7, 0 )));
         pieces.add(new Knight(player2, false, "♘", new Position(7, 1 )));
-        pieces.add(new Bishop(player2, false, "♗", new Position(7, 5 )));
+        pieces.add(new Bishop(player2, false, "♗", new Position(7, 2 )));
         pieces.add(new Queen (player2, false, "♕", new Position(7, 3 )));
         pieces.add(new King  (player2, false, "♔", new Position(7, 4 )));
-        pieces.add(new Bishop(player2, false, "♗", new Position(7, 2 )));
+        pieces.add(new Bishop(player2, false, "♗", new Position(7, 5 )));
         pieces.add(new Knight(player2, false, "♘", new Position(7, 6 )));
         pieces.add(new Rook  (player2, false, "♖", new Position(7, 7 )));
     }
+
     /**
      * Create a 2Dimensional array 8x8 which is the board
      * @param
@@ -76,8 +75,7 @@ public class Game {
         }
     }
 
-
-    /////////////////////////////////// MENU OPTIONS
+ /////////////////////////////////////////////////////////////////// MENU OPTIONS
     /**
      * Call the menu options repetitive until the game finishes.
      * @param
@@ -97,6 +95,7 @@ public class Game {
             }
         }
     }
+
     /**
      * Print the help options explained.
      * @param
@@ -110,6 +109,7 @@ public class Game {
         System.out.println("* Type a square (e.g b1, e2) to list all possible moves for that square");
         System.out.println("* Type UCI (e.g. b1c3, e7e8) to make a move");
     }
+
     /**
      * Print the board by reading the updated 2D array with all pieces and squares
      * @param
@@ -126,6 +126,7 @@ public class Game {
         }
         System.out.println("A "+"B "+"C "+"D "+"E "+"F "+"G "+"H ");
     }
+
     /**
      * Print the winner and ask if you would like to start another chess match
      * @param
@@ -139,6 +140,7 @@ public class Game {
 
         // PENDING TO PROGRAM, RESET BOARD AND START AGAIN WITHOUT EXIT THE SYSTEM
     }
+
     /**
      *
      * @param
@@ -153,7 +155,7 @@ public class Game {
         //else                                System.out.println("Nope, can't do!");
     }
 
-    /////////////////////////////////// VALIDATION OPTIONS
+ /////////////////////////////////////////////////////////////////// MENU OPTIONS
     /**
      * Call all methods of validations(such a valid's 1 move, valid player's turn and valid piece
      * @param UCI array position
@@ -167,6 +169,7 @@ public class Game {
         else
             return false;
     }
+
     /**
      * Check if you entered at least 2 position(FROM square TO square) the "from" position and the "to" position
      * @param UCI array position
@@ -178,6 +181,7 @@ public class Game {
             return false;
         }else return true;
     }
+
     /**
      *  This method checks if the "position"
      *  you are trying to move exists or it is just a empty square
@@ -195,6 +199,7 @@ public class Game {
             return true;
         }
     }
+
     /**
      *
      * @param
@@ -203,6 +208,7 @@ public class Game {
     private boolean validatePlayer(){
         return true; // PENDING
     }
+
     /**
      * Check if the UCI is a valid option or valid move's coordinates
      * @param UCI is the user typing
@@ -234,9 +240,16 @@ public class Game {
         }
         return (flag1 && flag2);
     }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean isPromotePiece() {
+        return false;
+    }
 
-
-    /////////////////////////////////// UCI, TURN AND COORDINATE OPTIONS
+ /////////////////////////////////// UCI, TURN AND COORDINATE OPTIONS
     /**
      * Read the UCI(letter a number) movement's position and convert to coordinates
      * in 2D array "e.g. a7a6 -> (a7)array[1][0] (a6)array[2][0]
@@ -274,6 +287,7 @@ public class Game {
                 default: System.out.println("Input out the range");    break;
             }
         }
+
         int[] newUCI = new int[UCI.length];
         newUCI[0]=Integer.parseInt(UCI[1]); // A = 0
         newUCI[1]=Integer.parseInt(UCI[0]); // 2 = 6
@@ -282,16 +296,30 @@ public class Game {
         // Ex. UCI = A2A3 / newUCI = 6050
         return newUCI;
     }
+
     /**
      *
-     *
-     * */
+     * @param
+     * @return
+     */
     private void changePiece(int[] UCI){
-        boardPrev = new Piece[1][1];
-        boardPrev[0][0] = board[UCI[2]][UCI[3]];
-        board[UCI[2]][UCI[3]] = board[UCI[0]][UCI[1]];
-        board[UCI[0]][UCI[1]] = boardPrev[0][0];
+        int fromX=UCI[0], fromY=UCI[1],
+            toX  =UCI[2], toY  =UCI[3];
+
+        boardPrev           = new Piece[1][1];
+        boardPrev[0][0]     = board[toX][toY];
+        board[toX][toY]     = board[fromX][fromY];
+        board[fromX][fromY] = boardPrev[0][0];
     }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private boolean promotePiece() {
+        return true;
+    }
+
     /**
      * This method updates the player turn, if it's "White player" or "Black player"
      * @param
@@ -319,15 +347,21 @@ public class Game {
                     return;
                 }
                 newUCI = changeCoordinate(UCI, "two-dimensional");
+                int fromX=newUCI[0], fromY=newUCI[1],
+                    toX  =newUCI[2], toY  =newUCI[3];
 
                 if (mainValidations(newUCI)){
-                    if (board[newUCI[0]][newUCI[1]].isValidMove(new Position(newUCI[2], newUCI[3]))){
-                        changePiece(newUCI);
-                        changeTurn();
-                        showBoard();
-                    }else{
-                        System.out.println("Invalid movement, please try again\n");
+                    if (!board[fromX][fromY].isValidMove(new Position(toX,toY),turn, board)) {
+                        System.out.println("Invalid movement, please try again");
+                        return;
                     }
+
+                    if (isPromotePiece())
+                        promotePiece();
+
+                    changePiece(newUCI);
+                    //changeTurn();
+                    showBoard();
                 }
                 break;
             case 2:

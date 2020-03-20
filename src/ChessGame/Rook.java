@@ -74,29 +74,56 @@ class Rook extends Piece{
     }
 
     /**
+     *
+     *
+     * @param
+     * @return
+     */
+    private boolean blockPiece(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
+        if (movHorizontal>0) { // LEFT
+            for (int i = 1; i <= movHorizontal; i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol - i].getPlayer())
+                    return true;
+        }
+        else if (movHorizontal<0) { // RIGHT
+            for (int i = 1; i <= (movHorizontal * -1); i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol + i].getPlayer())
+                    return true;
+        }
+        else if (movVertical>0) { // UP
+            for (int i = 1; i <= movVertical; i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-i][oldCol].getPlayer())
+                    return true;
+        }
+        else if (movVertical<0) { // DOWN
+            for (int i = 1; i <= (movVertical * -1); i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow + i][oldCol].getPlayer())
+                    return true;
+        }
+        return false;
+    }
+
+    /**
      * Check if the Position(newPosition) is a valid move for the Rook based on the Chess's rules
      *
      * @param newPosition is the new row and new col of the piece in the board
      * @return true if it's a valid move
      */
-    @Override public boolean isValidMove(Position newPosition){
-        if(!super.isValidMove(position))return false; // First call the parent's method to check for the board bounds
-
+    @Override public boolean isValidMove(Position newPosition, String player, Piece[][] board){
+        if(!super.isValidMove(position, "",null))return false; // First call the parent's method to check for the board bounds
         // rules
         //  R=R-N	R=R+N	R=R		R=R
         //  C=C		C=C		C=C-N	C=C+C
+        if (getPlayer()!=player)                         return false;
+        int oldRow = this.position.getRow(), oldCol = this.position.getCol(),
+            newRow = newPosition.getRow(),   newCol = newPosition.getCol(),
+            movHorizontal = oldCol - newCol,
+            movVertical   = oldRow - newRow;
 
-        int newRow = newPosition.getRow();   int newCol = newPosition.getCol();
-        int oldRow = this.position.getRow(); int oldCol = this.position.getCol();
-        int movHorizontal   = oldCol - newCol;
-        int movVertical = oldRow - newRow;
-
-        if ((movHorizontal>0 && movVertical>0) ||
-            (movHorizontal>0 && movVertical<0) ||
-
-            (movHorizontal<0 && movVertical>0) ||
-            (movHorizontal<0 && movVertical<0))
-        return false;
+        if ((movHorizontal>0 && movVertical>0) || (movHorizontal>0 && movVertical<0) ||
+            (movHorizontal<0 && movVertical>0) || (movHorizontal<0 && movVertical<0))
+            return false;
+        if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
         setPosition(newPosition);
         return true;

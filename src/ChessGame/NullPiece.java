@@ -49,16 +49,8 @@ public class NullPiece extends Piece{
                 this.isWhite == piece.getIsWhite() &&
                 this.player  == piece.getPlayer() );
     }
-    @Override public boolean isValidMove(Position newPosition){
-        // First call the parent's method to check for the board bounds
-        if(!super.isValidMove(position))return false;
-
-        // If we passed the first test then check for the specific rook movement
-        if(newPosition.getCol() == this.position.getCol() || newPosition.getRow() == this.position.getCol()){
-            return true;
-        }
-        else{
-            return false;
-        }
+    @Override public boolean isValidMove(Position newPosition, String player, Piece[][] board){
+        if(!super.isValidMove(position, "",null))return false; // First call the parent's method to check for the board bounds
+        return true;
     }
 }

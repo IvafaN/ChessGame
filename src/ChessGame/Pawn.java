@@ -16,6 +16,7 @@ class Pawn extends Piece{
         setPosition(position);
         setNumMaxMovements(numMaxMovements);
     }
+
     /**
      * Setters...
      * Change(update) the values of number of movements, the player(String) and color(boolean), the position and the symbol.
@@ -73,35 +74,46 @@ class Pawn extends Piece{
     }
 
     /**
+     *
+     *
+     * @param
+     * @return
+     */
+    private boolean blockPiece(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
+        if (board[oldRow][oldCol].getPlayer() == board[newRow][newCol].getPlayer()) return true;
+        return false;
+    }
+
+    /**
      * Check if the Position(newPosition) is a valid move for the Pawn based on the Chess's rules
      *
      * @param newPosition is the new row and new col of the piece in the board
      * @return true if it's a valid move
      */
-    @Override public boolean isValidMove(Position newPosition){
-        if(!super.isValidMove(position))return false; // First call the parent's method to check for the board bounds
-
+    @Override public boolean isValidMove(Position newPosition, String player, Piece[][] board){
+        if(!super.isValidMove(position, "",null))return false; // First call the parent's method to check for the board bounds
         // rules
         //	R=R+-1		R=R+-1		R=R+-2
         //		    	C=C+-1		C=C+-1
+        if (getPlayer()!=player)                         return false;
+        int oldRow = this.position.getRow(), oldCol = this.position.getCol(),
+            newRow = newPosition.getRow(),   newCol = newPosition.getCol(),
+            movHorizontal = oldCol - newCol,
+            movVertical   = oldRow - newRow;
 
-        int newRow = newPosition.getRow();   int newCol = newPosition.getCol();
-        int oldRow = this.position.getRow(); int oldCol = this.position.getCol();
-
-        if (getIsWhite()){
-            // Rows
-            if (newRow <= oldRow)                                        return false; // down movement
-            if ((oldRow - newRow) < numMaxMovements+1)                   return false; // 3 up movements
-            // Columns
-            if (newCol > oldCol+1 || newCol < oldCol-1)                  return false; // 2 movements to the left or right
-        }else{
-            // Rows
-            if (newRow >= oldRow)                                        return false; // down movement
-            if ((oldRow - newRow) > numMaxMovements+1)                   return false; // 3 up movements
-            // Columns
+        if (player=="White"){
+            if (newRow <= oldRow)                                                          return false; // down movement
+            if ((newRow - oldRow) > numMaxMovements+1)                                     return false; // 3 up movements
+            if ((newRow - oldRow) == numMaxMovements+1 && firstMovement)                   return false; // 2 movements after first move
         }
-        if (newCol > oldCol+1 || newCol < oldCol-1)               return false; // 2 movements to the left or right
-        if ((oldRow - newRow) == numMaxMovements+1 && firstMovement) return false; // 2 movements after first move
+        else{
+            if (newRow >= oldRow)                                                          return false; // down movement
+            if ((oldRow - newRow) > numMaxMovements+1)                                     return false; // 3 up movements
+            if ((oldRow - newRow) == numMaxMovements+1 && firstMovement)                   return false; // 2 movements after first move
+        }
+        if (newCol > oldCol+1 || newCol < oldCol-1)                                        return false; // 2 movements to the left or right
+        if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
+
         setPosition(newPosition);
         firstMovement = true;
         return true;

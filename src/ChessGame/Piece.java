@@ -23,7 +23,7 @@ abstract class Piece{
     public abstract String toString();
 
     public abstract Boolean equals(Piece piece);
-    public boolean isValidMove(Position newPosition){
+    public boolean isValidMove(Position newPosition, String player, Piece[][] board){
         if(newPosition.getRow()>=0 && newPosition.getCol()>=0 &&
            newPosition.getRow()<8 && newPosition.getCol()<8){
             return true;

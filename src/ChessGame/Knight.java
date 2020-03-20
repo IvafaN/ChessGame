@@ -74,38 +74,86 @@ class Knight extends Piece{
     }
 
     /**
+     *
+     *
+     * @param
+     * @return
+     */
+    private boolean blockPiece(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
+        int maxMov = 2;
+
+        for (int i = 1; i <= maxMov ; i++) {
+            if (movHorizontal>1) { // LEFT
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol - i].getPlayer()) return true;
+            }
+            else if (movHorizontal<-1) { // RIGHT
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol + i].getPlayer()) return true;
+            }
+            else if (movVertical>1) { // UP
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow - i][oldCol].getPlayer()) return true;
+            }
+            else if (movVertical<-1) { // DOWN
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow + i][oldCol].getPlayer()) return true;
+            }
+        }
+
+        if (movHorizontal>1){       // LEFT
+            if (movVertical>0){      // UP
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-2][oldCol-1].getPlayer()) return true;
+            }else{                    // DOWN
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-2][oldCol+1].getPlayer()) return true;
+            }
+        }else if(movHorizontal<-1){ // RIGHT
+            if (movVertical>0){      // UP
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow+2][oldCol-1].getPlayer()) return true;
+            }else{                    // DOWN
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow+2][oldCol+1].getPlayer()) return true;
+            }
+        }else if(movVertical>1){    // UP
+            if (movHorizontal>0){    // LEFT
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-2][oldCol-1].getPlayer()) return true;
+            }else{                    // RIGHT
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-2][oldCol+1].getPlayer()) return true;
+            }
+        }else if(movVertical<-1){   // DOWN
+            if (movHorizontal>0){    // LEFT
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow+2][oldCol-1].getPlayer()) return true;
+            }else{                    // RIGHT
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow+2][oldCol+1].getPlayer()) return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Check if the Position(newPosition) is a valid move for the Knight based on the Chess's rules
      *
      * @param newPosition is the new row and new col of the piece in the board
      * @return true if it's a valid move
      */
-    @Override public boolean isValidMove(Position newPosition){
-        if(!super.isValidMove(position))return false; // First call the parent's method to check for the board bounds
-
+    @Override public boolean isValidMove(Position newPosition, String player, Piece[][] board){
+        if(!super.isValidMove(position, "",null))return false; // First call the parent's method to check for the board bounds
         // rules
         // R=R+-2		R=R+-1
         // C=C+-1		C=C+-2
+        if (getPlayer()!=player)                                   return false;
+        int oldRow = this.position.getRow(), oldCol = this.position.getCol(),
+            newRow = newPosition.getRow(),   newCol = newPosition.getCol(),
+            movHorizontal = oldCol - newCol,
+            movVertical   = oldRow - newRow;
 
-        int newRow = newPosition.getRow();   int newCol = newPosition.getCol();
-        int oldRow = this.position.getRow(); int oldCol = this.position.getCol();
-        int movHorizontal = oldCol - newCol;
-        int movVertical   = oldRow - newRow;
+        if (movHorizontal==0)                                      return false;
+        if (movVertical==0)                                        return false;
 
-        if (movHorizontal==0)return false;
-        if (movVertical==0)return false;
+        if (movVertical>2   || movVertical<-2  )                   return false;
+        if (movHorizontal>2 || movHorizontal<-2)                   return false;
 
-        if ((movVertical >  2 || movHorizontal >  2) ||
-            (movVertical < -2 || movHorizontal < -2)) return false;
+        if (movVertical==2 && (movHorizontal>1 || movVertical<-1)) return false;
+        if (movVertical==2 && (movHorizontal>1 || movVertical<-1)) return false;
 
-        if ((movVertical== 1 && movHorizontal >  2)||
-            (movVertical==-1 && movHorizontal > -2)||
-            (movVertical== 1 && movHorizontal > -2)||
-            (movVertical==-1 && movHorizontal >  2))  return false;
-
-        if ((movHorizontal== 1 && movVertical >  2)||
-            (movHorizontal==-1 && movVertical > -2)||
-            (movHorizontal== 1 && movVertical > -2)||
-            (movHorizontal==-1 && movVertical >  2))  return false;
+        if (movHorizontal==2 && (movVertical>1 || movVertical<-1)) return false;
+        if (movHorizontal==2 && (movVertical>1 || movVertical<-1)) return false;
+        if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
         setPosition(newPosition);
         return true;

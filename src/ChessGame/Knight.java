@@ -75,39 +75,21 @@ class Knight extends Piece{
 
     /**
      *
-     *
      * @param
      * @return
      */
     private boolean blockPiece(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
-        int maxMov = 2;
-
-        for (int i = 1; i <= maxMov ; i++) {
-            if (movHorizontal>1) { // LEFT
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol - i].getPlayer()) return true;
-            }
-            else if (movHorizontal<-1) { // RIGHT
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol + i].getPlayer()) return true;
-            }
-            else if (movVertical>1) { // UP
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow - i][oldCol].getPlayer()) return true;
-            }
-            else if (movVertical<-1) { // DOWN
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow + i][oldCol].getPlayer()) return true;
-            }
-        }
-
         if (movHorizontal>1){       // LEFT
             if (movVertical>0){      // UP
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow-2][oldCol-1].getPlayer()) return true;
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-1][oldCol-2].getPlayer()) return true;
             }else{                    // DOWN
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow-2][oldCol+1].getPlayer()) return true;
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow+1][oldCol-2].getPlayer()) return true;
             }
         }else if(movHorizontal<-1){ // RIGHT
             if (movVertical>0){      // UP
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow+2][oldCol-1].getPlayer()) return true;
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-1][oldCol+2].getPlayer()) return true;
             }else{                    // DOWN
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow+2][oldCol+1].getPlayer()) return true;
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow+1][oldCol+2].getPlayer()) return true;
             }
         }else if(movVertical>1){    // UP
             if (movHorizontal>0){    // LEFT

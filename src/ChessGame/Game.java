@@ -92,7 +92,13 @@ public class Game {
                 case "board":  showBoard();     break;
                 case "resign": resignPlayer();  break;
                 case "moves":  possibleMoves(); break;
-                default: getUCI(input); break;
+                default:
+                    if (getUCI(input)){
+                        String winner = (turn==player1)?player2:player1;
+                        System.out.printf("Game Over %s won by resignation", winner);
+                        on=false;
+                    }
+                    break;
             }
         }
     }
@@ -134,12 +140,7 @@ public class Game {
      * @return
      */
     private void resignPlayer(){
-        String winner = (turn==player1)?player2:player1;
-        System.out.printf("Game Over = %d-%d =  /  %s won by resignation", winPlayer1++, winPlayer2++, winner);
-        System.out.println();
-        System.out.println("Would you like to play again?");
-
-        // PENDING TO PROGRAM, RESET BOARD AND START AGAIN WITHOUT EXIT THE SYSTEM
+        System.out.printf("Game Over %s won\n", turn);
     }
 
     /**
@@ -303,77 +304,34 @@ public class Game {
      * @param
      * @return
      */
-    private void deletePiece(int fromX, int fromY, int toX, int toY){
-        if (!board[toX][toY].equals(new NullPiece("• ", new Position(toX,toY)))){
+    private boolean eatPiece(int fromX, int fromY, int toX, int toY){
+        if (board[toX][toY].getSymbol() == "♚" || board[toX][toY].getSymbol() == "♔"){
+                return true;
+        }
+        else if (!board[toX][toY].equals(new NullPiece("• ", new Position(toX,toY)))){
             if (turn == player1) piecesLostWhite.add(board[toX][toY]);
             else                 piecesLostBlack.add(board[toX][toY]);
             board[toX][toY] = new NullPiece("• ", new Position(toX,toY));
+            return false;
         }
+        return false;
     }
     /**
      *
      * @param
      * @return
      */
-    private void eatPiece(int fromX, int fromY, int toX, int toY){
-        String piece      = board[fromX][fromY].getSymbol();
-
-        if (piece == "♙" || piece == "♟"){
-            deletePiece(fromX, fromY, toX, toY);
-        }else if (piece == "♖" || piece == "♜"){
-            int movHorizontal = fromX - toX,
-                movVertical   = fromY - toY;
-            if (movHorizontal>0) { // LEFT
-                for (int i = 1; i <= movHorizontal; i++)
-                    deletePiece(fromX, fromY, toX, toY);
-            }
-            else if (movHorizontal<0) { // RIGHT
-                for (int i = 1; i <= (movHorizontal * -1); i++)
-                    deletePiece(fromX, fromY, toX, toY);
-            }
-            else if (movVertical>0) { // UP
-                for (int i = 1; i <= movVertical; i++)
-                    deletePiece(fromX, fromY, toX, toY);
-            }
-            else if (movVertical<0) { // DOWN
-                for (int i = 1; i <= (movVertical * -1); i++)
-                    deletePiece(fromX, fromY, toX, toY);
-            }
-        } else if (piece == "♙" || piece == "♟"){
-            deletePiece(fromX, fromY, toX, toY);
-        } else if (piece == "♘" || piece == "♞"){
-            deletePiece(fromX, fromY, toX, toY);
-        } else if (piece == "♗" || piece == "♝"){
-            deletePiece(fromX, fromY, toX, toY);
-        } else if (piece == "♕" || piece == "♛"){
-            deletePiece(fromX, fromY, toX, toY);
-        } else if (piece == "♔" || piece == "♚"){
-            deletePiece(fromX, fromY, toX, toY);
-        }
-    }
-    /**
-     *
-     * @param
-     * @return
-     */
-    private void changePiece(int[] UCI){
+    private boolean changePiece(int[] UCI){
         int fromX=UCI[0], fromY=UCI[1],
             toX  =UCI[2], toY  =UCI[3];
-        eatPiece(fromX, fromY, toX, toY);
-
-        boardPrev           = new Piece[1][1];
-        boardPrev[0][0]     = board[toX][toY];
-        board[toX][toY]     = board[fromX][fromY];
-        board[fromX][fromY] = boardPrev[0][0];
-    }
-    /**
-     * Change the coordinates of the piece after move by updating the array position in the board
-     *
-     * @param
-     * @return
-     */
-    private boolean promotePiece() {
-        return true;
+        if (eatPiece(fromX, fromY, toX, toY)) return true;
+        else{
+            boardPrev           = new Piece[1][1];
+            boardPrev[0][0]     = board[toX][toY];
+            board[toX][toY]     = board[fromX][fromY];
+            board[fromX][fromY] = boardPrev[0][0];
+            return false;
+        }
     }
 
     /**
@@ -395,37 +353,41 @@ public class Game {
      * @param input is the user's input
      * @return
      */
-    private void getUCI(String input) {
+    private boolean getUCI(String input) {
         String[] UCI = new String[input.length()];
         int[] newUCI = new int[input.length()];
         for (int i = 0; i < input.length(); i++) UCI[i] = input.substring(i,i+1);
 
-        switch (input.length()){
-            case 4:
-                if (!validateUCI(UCI, "two-dimensional")){
-                    System.out.println("Invalid input, values out range");
-                    return;
-                }
-                newUCI = changeCoordinate(UCI, "two-dimensional");
-                int fromX=newUCI[0], fromY=newUCI[1],
+        if (input.length()==4){
+            if (!validateUCI(UCI, "two-dimensional")){
+                System.out.println("Invalid input, values out range");
+                return false;
+            }
+            newUCI = changeCoordinate(UCI, "two-dimensional");
+            int fromX=newUCI[0], fromY=newUCI[1],
                     toX  =newUCI[2], toY  =newUCI[3];
 
-                if (mainValidations(newUCI)){
-                    if (!board[fromX][fromY].isValidMove(new Position(toX,toY),turn, board)) {
-                        System.out.println("Invalid movement, please try again");
-                        return;
-                    }
-                    changePiece(newUCI);
+            if (mainValidations(newUCI)){
+                if (!board[fromX][fromY].isValidMove(new Position(toX,toY),turn, board)) {
+                    System.out.println("Invalid movement, please try again");
+                    return false;
+                }
+                if (changePiece(newUCI)) return true;
+                else{
                     changeTurn();
                     showBoard();
+                    return false;
                 }
-                break;
-            case 2:
-                changeCoordinate(UCI, "");
-                break;
-            default:
-                System.out.println("Invalid input, please try again\n");
-                break;
+            }
         }
+        else if(input.length()==2){
+            changeCoordinate(UCI, "");
+            return false;
+        }
+        else {
+            System.out.println("Invalid input, please try again\n");
+            return false;
+        }
+        return false;
     }
 }

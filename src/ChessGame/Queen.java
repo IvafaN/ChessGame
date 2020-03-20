@@ -127,6 +127,104 @@ class Queen extends Piece{
 
         return false;
     }
+    private boolean blockPieceRival(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol) {
+        String player = board[oldRow][oldCol].getPlayer(); // Black - White
+        int maxMov = 0;
+        if ((movHorizontal*-1) == (movVertical*-1)) maxMov = (movHorizontal<0)?(movHorizontal*-1):movHorizontal;
+        else if ((movHorizontal*-1)  > (movVertical*-1)) maxMov = (movHorizontal*-1);
+        else                                             maxMov = (movVertical  *-1);
+
+        if (movHorizontal>0 && movVertical>0) { // LEFT UP
+            for (int i = 1; i <= maxMov-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow - i][oldCol - i].getPlayer() != "" && board[oldRow - i][oldCol - i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow - i][oldCol - i].getPlayer() != "" && board[oldRow - i][oldCol - i].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movHorizontal>0 && movVertical<0) { // LEFT DOWN
+            for (int i = 1; i <= maxMov-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow + i][oldCol - i].getPlayer() != "" && board[oldRow + i][oldCol - i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow + i][oldCol - i].getPlayer() != "" && board[oldRow + i][oldCol - i].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movHorizontal<0 && movVertical>0) { // RIGHT UP
+            for (int i = 1; i <= maxMov-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow - i][oldCol + i].getPlayer() != "" && board[oldRow - i][oldCol + i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow - i][oldCol + i].getPlayer() != "" && board[oldRow - i][oldCol + i].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movHorizontal<0 && movVertical<0) { // RIGHT DOWN
+            for (int i = 1; i <= maxMov-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow + i][oldCol + i].getPlayer() != "" && board[oldRow + i][oldCol + i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow + i][oldCol + i].getPlayer() != "" && board[oldRow + i][oldCol + i].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movHorizontal>0) { // LEFT
+            for (int i = 1; i <= movHorizontal-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow][oldCol - i].getPlayer() != "" && board[oldRow][oldCol - i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow][oldCol - i].getPlayer() != "" && board[oldRow][oldCol - i].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movHorizontal<0) { // RIGHT
+            for (int i = 1; i <= (movHorizontal * -1)-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow][oldCol + i].getPlayer() != "" && board[oldRow][oldCol + i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow][oldCol + i].getPlayer() != "" && board[oldRow][oldCol + i].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movVertical>0) { // UP
+            for (int i = 1; i <= movVertical-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow-i][newCol].getPlayer() != "" && board[oldRow-i][newCol].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow-i][newCol].getPlayer() != "" && board[oldRow-i][newCol].getPlayer() == "Black")
+                        return true;
+                }
+        }
+        else if (movVertical<0) { // DOWN
+            for (int i = 1; i <= (movVertical * -1)-1; i++)
+                if (player.equals("Black")){
+                    if (board[oldRow + i][oldCol + i].getPlayer() != "" && board[oldRow + i][oldCol + i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow + i][newCol].getPlayer() != "" && board[oldRow + i][newCol].getPlayer() == "Black")
+                        return true;
+                }
+        }
+
+        return false;
+    }
 
     /**
      * Check if the Position(newPosition) is a valid move for the Queen based on the Chess's rules
@@ -145,8 +243,9 @@ class Queen extends Piece{
             movHorizontal = oldCol - newCol,
             movVertical   = oldRow - newRow;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
+        if (blockPieceRival(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        //setPosition(newPosition);
+        setPosition(newPosition);
         return true;
     }
 }

@@ -92,7 +92,7 @@ class Rook extends Piece{
         }
         else if (movVertical>0) { // UP
             for (int i = 1; i <= movVertical; i++)
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow-i][oldCol].getPlayer())
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow - i][oldCol].getPlayer())
                     return true;
         }
         else if (movVertical<0) { // DOWN
@@ -103,26 +103,54 @@ class Rook extends Piece{
         return false;
     }
     private boolean blockPieceRival(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
+        String player=board[oldRow][oldCol].getPlayer(); // Black - White
         if (movHorizontal>0) { // LEFT
-            for (int i = 1; i <= movHorizontal; i++)
-                if (board[oldRow][oldCol].getPlayer() != board[oldRow][oldCol - i].getPlayer() &&
-                    board[oldRow][oldCol].getPlayer() != "" )
-                    return true;
+            for (int i = 1; i <= movHorizontal-1; i++){
+                if (player.equals("Black")){
+                    if (board[oldRow][oldCol - i].getPlayer() != "" && board[oldRow][oldCol - i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow][oldCol - i].getPlayer() != "" && board[oldRow][oldCol - i].getPlayer() == "Black")
+                        return true;
+                }
+            }
         }
         else if (movHorizontal<0) { // RIGHT
-            for (int i = 1; i <= (movHorizontal * -1); i++)
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol + i].getPlayer())
-                    return true;
+            for (int i = 1; i <= (movHorizontal * -1)-1; i++){
+                if (player.equals("Black")){
+                    if (board[oldRow][oldCol + i].getPlayer() != "" && board[oldRow][oldCol + i].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow][oldCol + i].getPlayer() != "" && board[oldRow][oldCol + i].getPlayer() == "Black")
+                        return true;
+                }
+            }
         }
         else if (movVertical>0) { // UP
-            for (int i = 1; i <= movVertical; i++)
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow-i][oldCol].getPlayer())
-                    return true;
+            for (int i = 1; i <= movVertical-1; i++){
+                if (player.equals("Black")){
+                    if (board[oldRow - i][oldCol].getPlayer() != "" && board[oldRow - i][oldCol].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow - i][oldCol].getPlayer() != "" && board[oldRow - i][oldCol].getPlayer() == "Black")
+                        return true;
+                }
+            }
         }
         else if (movVertical<0) { // DOWN
-            for (int i = 1; i <= (movVertical * -1); i++)
-                if (board[oldRow][oldCol].getPlayer() == board[oldRow + i][oldCol].getPlayer())
-                    return true;
+            for (int i = 1; i <= (movVertical * -1)-1; i++){
+                if (player.equals("Black")){
+                    if (board[oldRow + i][oldCol].getPlayer() != "" && board[oldRow + i][oldCol].getPlayer() == "White")
+                        return true;
+                }
+                else{
+                    if (board[oldRow + i][oldCol].getPlayer() != "" && board[oldRow + i][oldCol].getPlayer() == "Black")
+                        return true;
+                }
+            }
         }
         return false;
     }
@@ -148,8 +176,9 @@ class Rook extends Piece{
             (movHorizontal<0 && movVertical>0) || (movHorizontal<0 && movVertical<0))
             return false;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
+        if (blockPieceRival(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        //setPosition(newPosition);
+        setPosition(newPosition);
         return true;
     }
 }

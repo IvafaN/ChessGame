@@ -82,6 +82,18 @@ class King extends Piece{
         if (board[oldRow][oldCol].getPlayer() == board[newRow][newCol].getPlayer()) return true;
         return false;
     }
+    private boolean blockPieceRival(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
+        String player = board[oldRow][oldCol].getPlayer(); // Black - White
+        if (player.equals("Black")){
+            if (board[newRow][newCol].getPlayer() != "" && board[newRow][newCol].getPlayer() == "White")
+                return true;
+        }
+        else{
+            if (board[newRow][newCol].getPlayer() != "" && board[newRow][newCol].getPlayer() == "Black")
+                return true;
+        }
+        return false;
+    }
 
     /**
      * Check if the Position(newPosition) is a valid move for the King based on the Chess's rules

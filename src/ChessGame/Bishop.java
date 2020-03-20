@@ -74,10 +74,10 @@ class Bishop extends Piece{
     }
 
     /**
+     * Check if there is no pieces blocking the other pieces's move
      *
-     *
-     * @param
-     * @return
+     * @param board, movHorizontal, movVerticalm oldRow, oldCol, newRow, newCol
+     * @return true if there is a piece blocking your move
      */
     private boolean blockPiece(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
         int maxMov = 0;

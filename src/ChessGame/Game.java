@@ -299,8 +299,11 @@ public class Game {
     }
 
     /**
+     * Delete the eaten piece by another
+     * Check if the final spot of the movement is an empty square or if it's a piece and if that is
+     * a piece this method remove the old piece to be replaced by the new piece
      *
-     * @param
+     * @param fromX, fromY, toX, toY are the positions in the 2D array(board)
      * @return
      */
     private void deletePiece(int fromX, int fromY, int toX, int toY){
@@ -311,8 +314,11 @@ public class Game {
         }
     }
     /**
+     * Eat the opponent's piece by following the rules of each piece's move
+     * it calls the method "deletePiece" to remove the old piece from the 2D array(board)
+     * and replace with the other piece
      *
-     * @param
+     * @param fromX, fromY, toX, toY are the positions in the 2D array(board)
      * @return
      */
     private void eatPiece(int fromX, int fromY, int toX, int toY){

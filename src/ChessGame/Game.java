@@ -5,14 +5,15 @@ public class Game {
     private static final int MIN_ROW = 8, MIN_COL = 8;
     private static String player1 = "White", player2 = "Black", turn = "";
     private static int winPlayer1 = 0, winPlayer2 = 0;
-    private ArrayList<Piece> pieces, piecesLost;
+    private ArrayList<Piece> pieces, piecesLostWhite, piecesLostBlack;
     private Piece[][] board, boardPrev;
 
     public Game(){
         board      = new Piece[MIN_ROW][MIN_COL];
         pieces     = new ArrayList<>();
-        piecesLost = new ArrayList<>();
         turn       = player2;
+        piecesLostWhite = new ArrayList<>();
+        piecesLostBlack = new ArrayList<>();
     }
 
     /**
@@ -302,9 +303,63 @@ public class Game {
      * @param
      * @return
      */
+    private void deletePiece(int fromX, int fromY, int toX, int toY){
+        if (!board[toX][toY].equals(new NullPiece("• ", new Position(toX,toY)))){
+            if (turn == player1) piecesLostWhite.add(board[toX][toY]);
+            else                 piecesLostBlack.add(board[toX][toY]);
+            board[toX][toY] = new NullPiece("• ", new Position(toX,toY));
+        }
+    }
+    /**
+     *
+     * @param
+     * @return
+     */
+    private void eatPiece(int fromX, int fromY, int toX, int toY){
+        String piece      = board[fromX][fromY].getSymbol();
+
+        if (piece == "♙" || piece == "♟"){
+            deletePiece(fromX, fromY, toX, toY);
+        }else if (piece == "♖" || piece == "♜"){
+            int movHorizontal = fromX - toX,
+                movVertical   = fromY - toY;
+            if (movHorizontal>0) { // LEFT
+                for (int i = 1; i <= movHorizontal; i++)
+                    deletePiece(fromX, fromY, toX, toY);
+            }
+            else if (movHorizontal<0) { // RIGHT
+                for (int i = 1; i <= (movHorizontal * -1); i++)
+                    deletePiece(fromX, fromY, toX, toY);
+            }
+            else if (movVertical>0) { // UP
+                for (int i = 1; i <= movVertical; i++)
+                    deletePiece(fromX, fromY, toX, toY);
+            }
+            else if (movVertical<0) { // DOWN
+                for (int i = 1; i <= (movVertical * -1); i++)
+                    deletePiece(fromX, fromY, toX, toY);
+            }
+        } else if (piece == "♙" || piece == "♟"){
+            deletePiece(fromX, fromY, toX, toY);
+        } else if (piece == "♘" || piece == "♞"){
+            deletePiece(fromX, fromY, toX, toY);
+        } else if (piece == "♗" || piece == "♝"){
+            deletePiece(fromX, fromY, toX, toY);
+        } else if (piece == "♕" || piece == "♛"){
+            deletePiece(fromX, fromY, toX, toY);
+        } else if (piece == "♔" || piece == "♚"){
+            deletePiece(fromX, fromY, toX, toY);
+        }
+    }
+    /**
+     *
+     * @param
+     * @return
+     */
     private void changePiece(int[] UCI){
         int fromX=UCI[0], fromY=UCI[1],
             toX  =UCI[2], toY  =UCI[3];
+        eatPiece(fromX, fromY, toX, toY);
 
         boardPrev           = new Piece[1][1];
         boardPrev[0][0]     = board[toX][toY];
@@ -360,12 +415,8 @@ public class Game {
                         System.out.println("Invalid movement, please try again");
                         return;
                     }
-
-                    if (isPromotePiece())
-                        promotePiece();
-
                     changePiece(newUCI);
-                    //changeTurn();
+                    changeTurn();
                     showBoard();
                 }
                 break;

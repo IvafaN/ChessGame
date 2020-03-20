@@ -102,6 +102,30 @@ class Rook extends Piece{
         }
         return false;
     }
+    private boolean blockPieceRival(Piece[][] board, int movHorizontal, int movVertical, int oldRow, int oldCol, int newRow, int newCol){
+        if (movHorizontal>0) { // LEFT
+            for (int i = 1; i <= movHorizontal; i++)
+                if (board[oldRow][oldCol].getPlayer() != board[oldRow][oldCol - i].getPlayer() &&
+                    board[oldRow][oldCol].getPlayer() != "" )
+                    return true;
+        }
+        else if (movHorizontal<0) { // RIGHT
+            for (int i = 1; i <= (movHorizontal * -1); i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow][oldCol + i].getPlayer())
+                    return true;
+        }
+        else if (movVertical>0) { // UP
+            for (int i = 1; i <= movVertical; i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow-i][oldCol].getPlayer())
+                    return true;
+        }
+        else if (movVertical<0) { // DOWN
+            for (int i = 1; i <= (movVertical * -1); i++)
+                if (board[oldRow][oldCol].getPlayer() == board[oldRow + i][oldCol].getPlayer())
+                    return true;
+        }
+        return false;
+    }
 
     /**
      * Check if the Position(newPosition) is a valid move for the Rook based on the Chess's rules
@@ -125,7 +149,7 @@ class Rook extends Piece{
             return false;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        setPosition(newPosition);
+        //setPosition(newPosition);
         return true;
     }
 }

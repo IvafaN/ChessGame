@@ -137,7 +137,7 @@ class Knight extends Piece{
         if (movHorizontal==2 && (movVertical>1 || movVertical<-1)) return false;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        setPosition(newPosition);
+        //setPosition(newPosition);
         return true;
     }
 }

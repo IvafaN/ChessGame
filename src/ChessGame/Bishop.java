@@ -129,7 +129,7 @@ class Bishop extends Piece{
         if (movHorizontal==0)                                                              return false;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        setPosition(newPosition);
+        //setPosition(newPosition);
         return true;
     }
 }

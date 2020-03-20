@@ -146,7 +146,7 @@ class Queen extends Piece{
             movVertical   = oldRow - newRow;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        setPosition(newPosition);
+        //setPosition(newPosition);
         return true;
     }
 }

@@ -114,7 +114,7 @@ class Pawn extends Piece{
         if (newCol > oldCol+1 || newCol < oldCol-1)                                        return false; // 2 movements to the left or right
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        setPosition(newPosition);
+        //setPosition(newPosition);
         firstMovement = true;
         return true;
     }

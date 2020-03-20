@@ -72,11 +72,6 @@ class King extends Piece{
                 this.isWhite == piece.getIsWhite() &&
                 this.player  == piece.getPlayer() );
     }
-    /**
-     *
-     * @param
-     * @return
-     */
 
     /**
      *
@@ -109,7 +104,7 @@ class King extends Piece{
         if ((movVertical>1)||(movVertical<-1))                                             return false;
         if (blockPiece(board, movHorizontal, movVertical, oldRow, oldCol, newRow, newCol)) return false;
 
-        setPosition(newPosition);
+        //setPosition(newPosition);
         return true;
     }
 }

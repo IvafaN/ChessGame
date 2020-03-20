@@ -291,6 +291,7 @@ public class Game {
         return true; // PENDING
     }
     /**
+     * Change the coordinates of the piece after move by updating the array position in the board
      *
      * @param
      * @return
@@ -312,8 +313,12 @@ public class Game {
         else                      turn = player1;
     }
     /**
+     * This method validates the user's input by checking if the input has a valid move with the
+     * right length of string and also calling the method to check if the input is a valid move for the
+     * piece selected
+     * It prints an error if it's an invalid input
      *
-     * @param
+     * @param input is the user's input
      * @return
      */
     private void getUCI(String input) {
